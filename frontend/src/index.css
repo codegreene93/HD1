@@ -341,3 +341,27 @@ input {
   border: .1rem #c0c0c0 solid;
   border-radius: 0.5rem;
 }
+
+
+/* Checkout Steps */
+
+.checkout-steps {
+  display: flex;
+  justify-content: space-between;
+  width: 40rem;
+  margin: 1rem auto;
+}
+
+/* Set style for inner divs */
+
+.checkout-steps > div {
+  border-top: .3rem #c0c0c0 solid;
+  color: #c0c0c0;
+  flex: 1 1;
+  padding-top: 1rem;
+}
+
+.checkout-steps > div.active {
+  border-top: .3rem #00706F solid;
+  color: #00706F;
+}

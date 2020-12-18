@@ -13,10 +13,12 @@ function RegisterScreen(props){
   const userRegister = useSelector(state => state.userRegister);
   const {loading, userInfo, error} = userRegister;
   const dispatch = useDispatch();
+  const redirect = props.location.search?props.location.search.split("=")[1]: "/";
 
   useEffect(() => {
     if(userInfo){
-      props.history.push("/")
+        //redirect for shipping
+      props.history.push("redirect")
     }
     return() => {
       //
@@ -68,8 +70,10 @@ const submitHandler = (e) => {
         <li>
           <button type="submit" className="button primary">Register</button>
         </li>
+        //if nothing is added to cart redirect to home screen otherwise redirect to shipping
         <li>
-          Already a member? <Link to="/signin">Sign in</Link>
+          Already a member?
+          <Link to={redirect === "/" ? "signin": "signin?redirect=" + redirect} className= "button secondary text-center"> Log in</Link>
         </li>
       </ul>
       </form>

@@ -10,10 +10,12 @@ function SigninScreen(props){
   const userSignin = useSelector(state => state.userSignin);
   const {loading, userInfo, error} = userSignin;
   const dispatch = useDispatch();
+  //redirect for shipping
+  const redirect = props.location.search?props.location.search.split("=")[1]: "/";
 
   useEffect(() => {
     if(userInfo){
-      props.history.push("/")
+      props.history.push(redirect)
     }
     return() => {
       //
@@ -55,7 +57,8 @@ const submitHandler = (e) => {
           New to Honeyman Designs?
         </li>
         <li>
-        <Link to="/register" className= "button secondary text-center"> Create new user</Link>
+        //if nothing is added to cart redirect to home screen otherwise redirect to shipping
+        <Link to={redirect === "/" ? "register": "register?redirect=" + redirect} className= "button secondary text-center"> Create new user</Link>
         </li>
       </ul>
       </form>
