@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {savePayment} from '../actions/cartActions';
+import { savePayment } from '../actions/cartActions';
 import {Link} from 'react-router-dom';
 import CheckoutSteps from '../components/CheckoutSteps';
 
@@ -28,12 +28,13 @@ const submitHandler = (e) => {
           <h2>Payment</h2>
         </li>
         <li>
+        <div>
         <input type="radio" name="paymentMethod" id="paymentMethod" value="paypal" onChange={(e) => setPaymentMethod(e.target.value)}>
         </input>
           <label htmlFor="paymentMethod">
             PayPal:
           </label>
-
+          </div>
         </li>
 
         <li>
