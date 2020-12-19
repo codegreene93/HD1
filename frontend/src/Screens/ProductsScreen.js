@@ -73,7 +73,6 @@ function ProductsScreen(props) {
               {loadingSave && <div>Loading...</div>}
               {errorSave && <div>{errorSave}</div>}
             </li>
-
             <li>
               <label htmlFor="name">
                 Name
@@ -162,7 +161,6 @@ function ProductsScreen(props) {
           </tr>))}
         </tbody>
       </table>
-
     </div>
   </div>
 }

@@ -3,10 +3,14 @@ import { addToCart, removeFromCart } from '../actions/cartActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CheckoutSteps from '../components/CheckoutSteps';
+import { createOrder } from '../actions/orderActions';
 
 function PlaceOrderScreen(props){
 
   const cart = useSelector(state => state.cart);
+  const orderCreate = useSelector(state => state.orderCreate);
+  const {loading, success, error, order} = orderCreate;
+
   const {cartItems, shipping, payment} = cart;
   //if shipping is not defined redirect to shipping screen
   if(!shipping.address){
@@ -24,10 +28,16 @@ function PlaceOrderScreen(props){
 
   const placeOrderHandler = () => {
     //Create an order
+    dispatch(createOrder({
+    orderItems: cartItems, shipping, payment, itemsPrice, shippingPrice, totalPrice
+
+    }))
   }
   useEffect(() =>{
-
-  }, []);
+    if(success){
+      props.history.push("/order/" + order._id);
+    }
+  }, [success]);
 
   const checkoutHandler = () => {
     props.history.push("/signin?redirect=shipping");

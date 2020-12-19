@@ -57,7 +57,6 @@ const submitHandler = (e) => {
           New to Honeyman Designs?
         </li>
         <li>
-        //if nothing is added to cart redirect to home screen otherwise redirect to shipping
         <Link to={redirect === "/" ? "register": "register?redirect=" + redirect} className= "button secondary text-center"> Create new user</Link>
         </li>
       </ul>

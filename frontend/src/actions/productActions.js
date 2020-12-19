@@ -36,9 +36,7 @@ import Axios from 'axios';
         });
         dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: data });
       }
-
     } catch (error) {
-
       dispatch({ type: PRODUCT_SAVE_FAIL, payload: error.message });
     }
   }
