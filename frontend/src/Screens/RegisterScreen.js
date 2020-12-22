@@ -70,7 +70,7 @@ const submitHandler = (e) => {
         <li>
           <button type="submit" className="button primary">Register</button>
         </li>
-        //if nothing is added to cart redirect to home screen otherwise redirect to shipping
+    
         <li>
           Already a member?
           <Link to={redirect === "/" ? "signin": "signin?redirect=" + redirect} className= "button secondary text-center"> Log in</Link>
