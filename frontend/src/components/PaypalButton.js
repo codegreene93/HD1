@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 
 
   function PaypalButton(props){
 
-    const [sdkReady, setSDKReady] = useState(false);
+    const [sdkReady, setSdkReady] = useState(false);
 
-    const addPaypalSdk = async() => {
-      const result = await axios.get("/api/config/paypal");
-      const clientID = result.data;
-      const script = document.createElement('script')
+    const addPaypalScript = async () => {
+      const { data: clientId } = await axios.get('/api/config/paypal');
+      const script = document.createElement('script');
       script.type = 'text/javascript';
-      script.src = 'https://www.paypal.com/sdk/js?client-id=' + clientID;
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
       script.async = true;
       script.onload = () => {
-        setSDKReady(true);
-      }
+        setSdkReady(true);
+      };
       document.body.appendChild(script);
-    }
+    };
 
     const createOrder = (data, actions) => actions.order.create({
       purchase_units: [
@@ -37,12 +36,13 @@ import axios from 'axios';
 
     useEffect(() => {
       if(!window.paypal){
-        addPaypalSdk();
+        addPaypalScript();
       }
       return () => {
         //
       };
-    }, [])
+    }, []);
+
     if(!sdkReady){
       return <div>Loading ...</div>
     }

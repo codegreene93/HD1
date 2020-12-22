@@ -12,7 +12,7 @@ const router = express.Router();
     } else {
       res.status(404).send("Order not found");
     }
-  })
+  });
 
   //create a new order
 router.post("/" , isAuth, async(req,res) => {
@@ -21,7 +21,7 @@ router.post("/" , isAuth, async(req,res) => {
     user: req.user._id,
     shipping: req.body.shipping,
     payment: req.body.payment,
-    itemsPrice: req.body.payment,
+    itemsPrice: req.body.itemsPrice,
     shippingPrice: req.body.shippingPrice,
     totalPrice: req.body.totalPrice,
   })
@@ -29,5 +29,25 @@ router.post("/" , isAuth, async(req,res) => {
   const newOrderCreated = await newOrder.save();
   res.status(201).send({message: "new order created", data: newOrderCreated});
 })
+
+router.put("/:id/pay", isAuth, async (req, res) => {
+  const order = await Order.findById(req.params.id);
+  if (order) {
+    order.isPaid = true;
+    order.paidAt = Date.now();
+    order.payment = {
+      paymentMethod: 'paypal',
+      paymentResult: {
+        payerID: req.body.payerID,
+        orderID: req.body.orderID,
+        paymentID: req.body.paymentID
+      }
+    }
+    const updatedOrder = await order.save();
+    res.send({ message: 'Order Paid.', order: updatedOrder });
+  } else {
+    res.status(404).send({ message: 'Order not found.' })
+  }
+});
 
 export default router;

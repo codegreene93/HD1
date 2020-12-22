@@ -11,19 +11,19 @@ function PlaceOrderScreen(props){
   const orderCreate = useSelector(state => state.orderCreate);
   const {loading, success, error, order} = orderCreate;
 
-  const {cartItems, shipping, payment} = cart;
   //if shipping is not defined redirect to shipping screen
-  if(!shipping.address){
-    props.history.push("shipping");
-  }else {
     //if payment is not defined redirect to payment screen
-    if(!payment){
-      props.history.push("payment");
+  const {cartItems, shipping, payment} = cart;
+  if(!shipping.address){
+    props.history.push("/shipping");
+  }else if(!payment.paymentMethod){
+      props.history.push("/payment");
     }
-  }
+
   const itemsPrice = cartItems.reduce((a,c) => a + c.price*c.qty, 0);
   const shippingPrice = itemsPrice > 100 ? 0: 5;
   const totalPrice = itemsPrice + shippingPrice;
+
   const dispatch = useDispatch();
 
   const placeOrderHandler = () => {
@@ -31,7 +31,7 @@ function PlaceOrderScreen(props){
     dispatch(createOrder({
     orderItems: cartItems, shipping, payment, itemsPrice, shippingPrice, totalPrice
 
-    }))
+  }));
   }
   useEffect(() =>{
     if(success){
@@ -67,10 +67,10 @@ function PlaceOrderScreen(props){
               <li>
                 <h3>
                   Shopping Cart
-            </h3>
+                  </h3>
                 <div>
                   Price
-            </div>
+                  </div>
               </li>
               {
                 cartItems.length === 0 ?
@@ -88,14 +88,13 @@ function PlaceOrderScreen(props){
                           <Link to={"/product/" + item.product}>
                             {item.name}
                           </Link>
-
                         </div>
                         <div>
                           Qty: {item.qty}
                         </div>
                       </div>
                       <div className="cart-price">
-                        ${item.price}
+                        €{item.price}
                       </div>
                     </li>
                   )
