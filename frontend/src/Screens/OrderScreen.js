@@ -93,7 +93,7 @@ const {loading, order, error} = orderDetails;
                           </div>
                         </div>
                         <div className="cart-price">
-                          ${item.price}
+                          €{item.price}
                         </div>
                       </li>
                     )
