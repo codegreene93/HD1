@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/myorders", isAuth, async (req, res) => {
   const orders = await Order.find({ user: req.user._id });
   res.send(orders);
-})
+});
 
 router.get("/", isAuth, async (req, res) => {
   const orders = await Order.find({}).populate('user');
@@ -19,7 +19,7 @@ router.get("/:id", isAuth, async (req, res) => {
   if (order) {
     res.send(order);
   } else {
-    res.status(404).send("Order Not Found.")
+    res.status(404).send("Order Not Found")
   }
 });
 
@@ -29,7 +29,7 @@ router.delete("/:id", isAuth, isAdmin, async (req, res) => {
     const deletedOrder = await order.remove();
     res.send(deletedOrder);
   } else {
-    res.status(404).send("Order Not Found.")
+    res.status(404).send("Order Not Found")
   }
 });
 
@@ -68,4 +68,5 @@ router.put("/:id/pay", isAuth, async (req, res) => {
     res.status(404).send({ message: 'Order not found.' })
   }
 });
+
 export default router;

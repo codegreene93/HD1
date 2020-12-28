@@ -15,12 +15,11 @@ function OrderScreen(props){
 
   useEffect(() => {
     if (successPay) {
-         props.history.push("/profile");
-       } else {
-         dispatch(detailsOrder(props.match.params.id));
-       }
+      props.history.push("/profile");
+    } else {
+      dispatch(detailsOrder(props.match.params.id));
+    }
     return () => {
-
     };
   }, [successPay]);
 

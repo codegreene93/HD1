@@ -24,7 +24,7 @@ import axios from 'axios';
       purchase_units: [
         {
           amount: {
-            currency_code: 'USD',
+            currency_code: 'EUR',
             value: props.amount
           }
         }

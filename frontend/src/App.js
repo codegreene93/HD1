@@ -38,7 +38,7 @@ function App() {
               <img src="/images/logo.jpg" alt="company logo"/>
            </div>
           <div className="header-links">
-            <a href="cart.html">Cart</a>
+            <Link to="/cart">Cart</Link>
 
             {
                userInfo ? <Link to="/profile">{userInfo.name}</Link> :

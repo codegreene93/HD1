@@ -18,7 +18,7 @@ function RegisterScreen(props){
   useEffect(() => {
     if(userInfo){
         //redirect for shipping
-      props.history.push("redirect")
+      props.history.push("/")
     }
     return() => {
       //
@@ -70,7 +70,7 @@ const submitHandler = (e) => {
         <li>
           <button type="submit" className="button primary">Register</button>
         </li>
-    
+
         <li>
           Already a member?
           <Link to={redirect === "/" ? "signin": "signin?redirect=" + redirect} className= "button secondary text-center"> Log in</Link>
