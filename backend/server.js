@@ -33,4 +33,6 @@ app.get("/api/config/paypal", (req, res) => {
  //app.get("/api/products", (req, res) => {
   // res.send(data.products);
 // });
-app.listen(5000, () => { console.log("Server started at http://localhost:5000") });
+app.use(express.static(path.join(__HoneymanDesigns, '/../frontend/build')));
+app.get('*', (req, res) => res.sendFile(path.join('${____HoneymanDesigns}/../frontend/build/index.html'));
+app.listen(config.PORT, …)
