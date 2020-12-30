@@ -35,7 +35,8 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-paypal-button-v2": "^2.6.2",
-    "react-scripts": "^4.0.1"
+    "react-scripts": "^4.0.1",
+    "upper-case": "^2.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
