@@ -24,6 +24,8 @@ _dotenv["default"].config();
 
 var mongodbUrl = _config["default"].MONGODB_URL;
 
+const port = process.env.PORT || 5000
+
 _mongoose["default"].connect(mongodbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -52,6 +54,6 @@ app.get("/api/config/paypal", function (req, res) {
 // res.send(data.products);
 // });
 
-app.listen(5000, function () {
-  console.log("Server started at http://localhost:5000");
+app.listen(port, function () {
+  console.log(`Server started at ${port}`);
 });
