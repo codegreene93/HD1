@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon --watch backend --exec babel-node backend/server.js",
     "build": "cd frontend && npm run build",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd frontend && npm install --prefix frontend && npm run build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build"
   },
   "repository": {
     "type": "git",
