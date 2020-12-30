@@ -21,10 +21,6 @@ app.use("/api/orders", orderRoute);
 app.get("/api/config/paypal", (req, res) => {
   res.send(config.PAYPAL_CLIENT_ID);
 })
-app.use(express.static(path.join(__dirname, '/frontend/build')));
-app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, '/frontend/build/index.html'))
-);
 
 /*app.get("/api/products/:id", (req, res) => {
    const productId = req.params.id;
@@ -34,10 +30,16 @@ app.get('*', (req, res) =>
    else
      res.status(404).send({ msg: "Product Not Found." })
  });*/
+
  //app.get("/api/products", (req, res) => {
   // res.send(data.products);
 // });
-const port = process.env.PORT || 5000;
-app.listen(port, () => {
-  console.log(`Serve at http://localhost:${port}`);
-});
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'))
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html')) // relative path
+  })
+}
+
+app.listen(process.env.PORT || 5000, () => { console.log("Server started at http://localhost:5000") });
