@@ -4,12 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-
-    "build":"cd frontend && npm run build",
-    "install-client": "cd frontend && npm install",
-    "client": "npm start --prefix client",
-    "start": "node backend/server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "start": "nodemon --watch backend --exec babel-node backend/server.js",
+  
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd frontend && npm install --prefix frontend && npm run build"
   },
   "repository": {
     "type": "git",
