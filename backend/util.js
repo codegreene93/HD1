@@ -1,11 +1,12 @@
-import jwt from 'jsonwebtoken';
-import config from './config';
+const jwt = require('jsonwebtoken')
+const config = require('./config')
+
 
 const getToken = (user) => {
   return jwt.sign({
-    _id:  user._id,
+    _id: user._id,
     name: user.name,
-    email:user.email,
+    email: user.email,
     isAdmin: user.isAdmin
 
   }, config.JWT_SECRET, {
@@ -15,28 +16,37 @@ const getToken = (user) => {
 
 const isAuth = (req, res, next) => {
   const token = req.headers.authorization;
-
-  if (token) {
-    const onlyToken = token.slice(7, token.length);
-    jwt.verify(onlyToken, config.JWT_SECRET, (err, decode) => {
-      if (err) {
-        return res.status(401).send({ msg: 'Invalid Token' });
-      }
+  try {
+    if (token) {
+      const onlyToken = token.slice(7, token.length);
+      jwt.verify(onlyToken, config.JWT_SECRET)
       req.user = decode;
       next();
       return
+
+    }
+  } catch (err) {
+    return res.status(401).send({
+      msg: "Token is not supplied."
     });
-  } else {
-    return res.status(401).send({ msg: "Token is not supplied." });
   }
 }
 
 const isAdmin = (req, res, next) => {
-  console.log(req.user)
-  if (req.user && req.user.isAdmin) {
-    return next();
+  try {
+    if (req.user && req.user.isAdmin) {
+      next()
+    }
+  } catch (err) {
+    return res.status(401).send({
+      msg: 'Admin Token is not valid.'
+    })
   }
-  return res.status(401).send({ msg: 'Admin Token is not valid.' })
+
 }
 
-export {getToken, isAuth, isAdmin}
+module.exports = {
+  getToken,
+  isAuth,
+  isAdmin
+}

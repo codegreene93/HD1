@@ -1,6 +1,6 @@
-import express from 'express';
-import Product from '../models/productModel';
-import { isAuth, isAdmin } from '../util';
+const express = require('express')
+const Product = require('../models/productModel')
+const { getToken, isAuth,isAdmin } = require('../util')
 const router = express.Router();
 
 
@@ -48,6 +48,8 @@ router.put("/:id", isAuth, isAdmin, async (req, res) => {
   }
   return res.status(500).send({ message: ' Error in Updating Product.' });
 });
+
+
 router.delete("/:id", isAuth, isAdmin, async (req, res) => {
   const deletedProduct = await Product.findById(req.params.id);
   if (deletedProduct) {
@@ -75,4 +77,4 @@ router.post("/", isAuth, isAdmin, async (req, res) => {
   }
   return res.status(500).send({ message: ' Error in Creating Product.' });
 })
-export default router;
+module.exports = router

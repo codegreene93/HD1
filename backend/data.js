@@ -1,5 +1,4 @@
-export default {
-  products: [
+  data: [
       {
       _id: '3',
       name: 'Monkey Light',
@@ -34,4 +33,3 @@ export default {
       countInStock: 11,
       }
 ]
-}

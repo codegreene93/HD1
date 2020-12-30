@@ -1,18 +1,35 @@
-import express from 'express';
-import data from './data';
-import config from './config';
-import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-import userRoute from './routes/userRoute';
-import productRoute from './routes/productRoute';
-import orderRoute from './routes/orderRoute';
+const express = require('express')
+const {data} = require('./data')
+const config = require('./config')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+const userRoute = require('./routes/userRoute')
+const productRoute = require('./routes/productRoute')
+const orderRoute = require('./routes/orderRoute')
 
 const mongodbUrl = config.MONGODB_URL;
-mongoose.connect(mongodbUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true
-}).catch(error => console.log(error.reason));
+const connectDB = async () => {
+  try {
+    await mongoose.connect(mongodbUrl, {
+      // added to avoid bugs
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+      useUnifiedTopology: true,
+    });
+
+    console.log("MongoDB is connected....");
+  } catch (err) {
+    console.error("err",err.message);
+    process.exit(1);
+  }
+ };
+ connectDB();
+// mongoose.connect(mongodbUrl, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useCreateIndex: true
+// }).catch(error => console.log("error.reason"));
 const app = express();
 app.use(bodyParser.json());
 app.use("/api/users", userRoute);

@@ -1,6 +1,8 @@
-import express from 'express';
-import Order from '../models/orderModel';
-import { isAuth, isAdmin } from '../util';
+const express = require('express')
+// import Order from '../models/orderModel';
+const Order = require('../models/orderModel')
+
+const { getToken, isAuth,isAdmin } = require('../util')
 
 const router = express.Router();
 
@@ -69,4 +71,4 @@ router.put("/:id/pay", isAuth, async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router
